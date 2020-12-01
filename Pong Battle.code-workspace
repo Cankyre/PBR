@@ -1,14 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "client"
-		},
-		{
-			"path": "server"
-		},
-		{
-			"path": "client-rewrite"
-		}
-	],
-	"settings": {}
+    "folders": [
+        {
+            "path": "client"
+        },
+        {
+            "path": "client-old"
+        },
+        {
+            "path": "server"
+        }
+    ]
 }
