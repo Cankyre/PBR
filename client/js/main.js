@@ -1,9 +1,15 @@
-const ws = new WebSocket('ws://localhost:8082')
 var playerBoard = document.getElementById('playerBoard');
-var opponentBoard = document.getElementById('opponentBoard')
+var opponentBoard = document.getElementById('opponentBoard');
+
+const startBtn = document.getElementById('start-game');
+const stopBtn = document.getElementById('stop-game');
+const hostInput = document.getElementById('host');
 
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
+
+var mainState = false;
+var sockState = false;
 
 var game = {ball: {},
             player: {y: playerBoard.height / 2 - PLAYER_HEIGHT / 2}};
@@ -44,22 +50,40 @@ function playerMove(event) {
 
 function main() {
     draw();
+    if (sockState) {
+        ws.send(JSON.stringify(game.player))
+    }
     requestAnimationFrame(main)
 }
 
 function update(data) {
-    game.ball = data.ball;
+    game.ball = JSON.parse(data).ball;
 }
 
 playerBoard.addEventListener('mousemove', playerMove);
 
-ws.addEventListener('open', () => {
-    console.log('connected');
-    setTimeout(main, 100)
-});
+function makeWs() {
+    ws = new WebSocket(hostInput.value);
 
-ws.addEventListener('message', ({data}) => {
-    update(JSON.parse(data))
-})
+    ws.addEventListener('open', () => {
+        console.log('connected');
+    });
 
+    ws.addEventListener('close', () => {
+        console.log('disconnected');
+        sockState = false;
+    })
+    
+    ws.addEventListener('message', ({data}) => {
+        update(data);
+        if (!mainState) {
+            main();
+            mainState = true;
+        }
+        
+    })
+}
+
+startBtn.onclick = makeWs
+stopBtn.onclick = function() {ws.close()};
 //TODO: Paddles
