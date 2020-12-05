@@ -5,8 +5,8 @@ var opponentBoard = document.getElementById('opponentBoard')
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
 
-var game = {ball: {}};
-var paddle = {y: playerBoard.height / 2 - PLAYER_HEIGHT / 2};
+var game = {ball: {},
+            player: {y: playerBoard.height / 2 - PLAYER_HEIGHT / 2}};
 
 function draw() {
     playerBoardContext = playerBoard.getContext('2d');
@@ -21,12 +21,25 @@ function draw() {
     playerBoardContext.stroke();
     
     playerBoardContext.fillStyle = 'white';
-    playerBoardContext.fillRect(0, paddle.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    playerBoardContext.fillRect(0, game.player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
 
     playerBoardContext.beginPath();
     playerBoardContext.fillStyle = 'white';
     playerBoardContext.arc(game.ball.pos.x, game.ball.pos.y, game.ball.r, 0, Math.PI * 2, false);
     playerBoardContext.fill();
+}
+
+function playerMove(event) {
+    var canvasLocation = playerBoard.getBoundingClientRect();
+    var mouseLocation = event.clientY - canvasLocation.y;
+
+    if (mouseLocation < PLAYER_HEIGHT / 2) {
+        game.player.y = 0;
+    } else if (mouseLocation > playerBoard.height - PLAYER_HEIGHT / 2) {
+        game.player.y = playerBoard.height - PLAYER_HEIGHT;
+    } else {
+        game.player.y = mouseLocation - PLAYER_HEIGHT / 2;
+    }
 }
 
 function main() {
@@ -37,6 +50,8 @@ function main() {
 function update(data) {
     game.ball = data.ball;
 }
+
+playerBoard.addEventListener('mousemove', playerMove);
 
 ws.addEventListener('open', () => {
     console.log('connected');
