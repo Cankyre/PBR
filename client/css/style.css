@@ -38,5 +38,17 @@ button {
 	border-radius: 50px;
 	border-width: 1px;
 	border-color: black;
-	background-color: white;
+	background: black;
+}
+
+ .hostInput{
+	position:relative;
+}
+  .hostInput2{
+	position:absolute;
+	right:10px;
+  }
+
+input {
+	background: black;
 }

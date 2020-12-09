@@ -67,6 +67,7 @@ function makeWs() {
 
     ws.addEventListener('open', () => {
         console.log('connected');
+        sockState = true;
     });
 
     ws.addEventListener('close', () => {
@@ -86,4 +87,3 @@ function makeWs() {
 
 startBtn.onclick = makeWs
 stopBtn.onclick = function() {ws.close()};
-//TODO: Paddles
