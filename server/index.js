@@ -4,7 +4,7 @@ var socket = [];
 
 const Ball = require('./Ball');
 
-var startBall = new Ball.Ball({x: 320, y: 240}, {x: 2, y: 2}, 5, "white")
+var startBall = new Ball.Ball({x: 320, y: 240}, {x: 5, y: 5}, 5, "white")
 var game = {ball : startBall};
 
 var play = false;
