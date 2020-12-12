@@ -12,6 +12,10 @@
 }
 
 * {
+	color: white;
+}
+
+body {
 	background: url(../img/background.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -41,13 +45,64 @@ button {
 	background: black;
 }
 
- .hostInput{
-	position:relative;
+#hostLabel {
+	background: none;
 }
-  .hostInput2{
-	position:absolute;
-	right:10px;
+
+.overlayInput {
+	color: white;
+	display: center;
+	background: none;
+}
+
+a {
+	color: grey;
+}
+
+#settings {
+	border-radius: 10px;
+	position: fixed;
+	padding: 2.5%;
+	display: none;
+	top: 10vh;
+	left: 10vh;
+	right: 10vh;
+	bottom: 10vh;
+	background: rgba(0, 0, 0, 0.7);
+	background-size:cover;
+	backdrop-filter: blur(5px);
+	z-index: 2;
   }
+
+#showCredits {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+
+#credits {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	border-radius: 10px;
+	position: fixed;
+	display: none;
+	padding: 5%;
+	top: 10vh;
+	left: 10vh;
+	right: 10vh;
+	bottom: 10vh;
+	background: rgba(0, 0, 0, 0.2);
+	background-size:cover;
+	backdrop-filter: blur(10px);
+	z-index: 3;
+  }
+
+#credits > h3 {
+	text-align: center;
+}
+
+.footer {
+	display: none;
+}
 
 input {
 	background: black;

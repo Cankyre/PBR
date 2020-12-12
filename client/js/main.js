@@ -3,6 +3,7 @@ var opponentBoard = document.getElementById('opponentBoard');
 
 const startBtn = document.getElementById('start-game');
 const stopBtn = document.getElementById('stop-game');
+const showCreditsBtn = document.getElementById('showCredits')
 const hostInput = document.getElementById('host');
 
 const PLAYER_HEIGHT = 100;
@@ -17,7 +18,7 @@ var game = {ball: {},
 function draw() {
     playerBoardContext = playerBoard.getContext('2d');
 
-    playerBoardContext.fillStyle = 'black';
+    playerBoardContext.fillStyle = 'black'; 
     playerBoardContext.fillRect(0, 0, playerBoard.width, playerBoard.height);
     
     playerBoardContext.strokeStyle = 'white';
@@ -84,6 +85,21 @@ function makeWs() {
         
     })
 }
+
+function toggleOverlay() {
+    var settings = document.getElementById("settings")
+    if (settings.style.display == 'none') {
+        settings.style.display = "block";
+    } else {
+        settings.style.display = "none";
+    }
+}
+
+document.addEventListener('keydown', KeyboardEvent => {
+    if (KeyboardEvent.key == 'Control') {
+        toggleOverlay();
+    }
+})
 
 startBtn.onclick = makeWs
 stopBtn.onclick = function() {ws.close()};
