@@ -1,7 +1,8 @@
 class Ball {
     constructor(pos, speed, r, color) {
         this.pos = pos;
-        this.speed = {x: Math.random() * speed.x, y: speed.y};
+        this.speed = {x: Math.random() * (speed.max.x - speed.min.x) + speed.min.x,
+            y: Math.random() * (speed.max.y - speed.min.y) + speed.min.y};
         this.r = r;
         this.color = color;
         this.initial = JSON.parse(JSON.stringify({pos: pos, speed: speed, r: r, color: color}))
@@ -14,7 +15,12 @@ class Ball {
 
     reset() {
         this.pos = JSON.parse(JSON.stringify(this.initial.pos));
-        this.speed = {x: Math.random() * JSON.parse(JSON.stringify(this.initial.speed.x)), y: JSON.parse(JSON.stringify(this.initial.speed.y))}
+        this.speed = {x: Math.random() * (JSON.parse(JSON.stringify(this.initial.speed.max.x)) 
+            - JSON.parse(JSON.stringify(this.initial.speed.min.x))) 
+            + JSON.parse(JSON.stringify(this.initial.speed.min.x)), 
+            y: Math.random() * (JSON.parse(JSON.stringify(this.initial.speed.max.y)) 
+            - JSON.parse(JSON.stringify(this.initial.speed.min.y))) 
+            + JSON.parse(JSON.stringify(this.initial.speed.min.y))}
         this.r = JSON.parse(JSON.stringify(this.initial.r));
         this.color = JSON.parse(JSON.stringify(this.initial.color));
     }
