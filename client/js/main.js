@@ -3,7 +3,7 @@ var opponentBoard = document.getElementById('opponentBoard');
 
 const startBtn = document.getElementById('start-game');
 const stopBtn = document.getElementById('stop-game');
-const showCreditsBtn = document.getElementById('showCredits')
+const showCreditsBtn = document.getElementById('showCredits');
 const hostInput = document.getElementById('host');
 
 const PLAYER_HEIGHT = 100;
@@ -11,6 +11,7 @@ const PLAYER_WIDTH = 5;
 
 var mainState = false;
 var sockState = false;
+
 
 var game = {ball: {},
             player: {y: playerBoard.height / 2 - PLAYER_HEIGHT / 2}};
@@ -85,21 +86,6 @@ function makeWs() {
         
     })
 }
-
-function toggleOverlay() {
-    var settings = document.getElementById("settings")
-    if (settings.style.display == 'none') {
-        settings.style.display = "block";
-    } else {
-        settings.style.display = "none";
-    }
-}
-
-document.addEventListener('keydown', KeyboardEvent => {
-    if (KeyboardEvent.key == 'Control') {
-        toggleOverlay();
-    }
-})
 
 startBtn.onclick = makeWs
 stopBtn.onclick = function() {ws.close()};

@@ -16,21 +16,42 @@
 }
 
 body {
-	background: url(../img/background.jpg) no-repeat center center fixed;
+	background: no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	color: white;
+	font-family: "ManaspaceReg";
+	text-align: justify;
 }
+
+@media (max-width: 640px) {
+	body {
+	  background-image: url(../img/background_640.jpg);
+	}
+  }
+
+@media (min-width: 641px) and (max-width: 1280px) {
+	body {
+	  background-image: url(../img/background_1280.jpg);
+	}
+}
+
+@media (min-width: 1281px) and (max-width: 1920px) {
+	body {
+	  background-image: url(../img/background_1920.jpg);
+	}
+}
+
+@media (min-width: 1920px) {
+	body {
+	  background-image: url(../img/background_7920.jpg);
+	}
+  }
 
 text {
 	border: 3px black solid;
-}
-
-body {
-	font-family: "ManaspaceReg";
-	text-align: justify;
 }
 
 ul {
