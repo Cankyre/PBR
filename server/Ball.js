@@ -34,7 +34,11 @@ class Ball {
         }
         if (paddle && (this.pos.x <= 5)) {
             if (this.pos.y > paddle.y && this.pos.y < paddle.y + 100) {
-                this.speed.x *= -1 - (1 / (1 + Math.exp((paddle.y + 50) - this.pos.y) * -1))
+                var impact = this.pos.y - paddle.y - 100 / 2;
+                var ratio = 100 / (100 / 2);
+                // Get a value between 0 and 10
+                this.speed.y = impact * ratio / 10; 
+                this.speed.x *= -1.2;           
             } else {
                 this.reset();
             } // Goal system here
