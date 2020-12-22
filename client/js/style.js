@@ -12,7 +12,7 @@ function toggleOverlay() {
 
 
 document.addEventListener('keydown', KeyboardEvent => {
-    if (KeyboardEvent.key == 'Control') {
+    if (KeyboardEvent.key == '*') {
         toggleOverlay();
     }
 })

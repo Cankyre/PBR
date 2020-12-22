@@ -1,3 +1,4 @@
 {
-    "whitelist": true
+    "whitelist": false,
+    "trustedIPs": [""]
 }

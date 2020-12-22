@@ -1,4 +1,9 @@
 const WebSocket = require('ws');
+const fs = require('fs')
+
+var config = JSON.parse(fs.readFileSync('./config/config.json'))
+console.log(config)
+
 
 var socket = [];
 
@@ -9,14 +14,21 @@ var game = {ball : startBall};
 
 var play = false;
 
-const wss = new WebSocket.Server({port: 8082, 
-    /*verifyClient(req) {
-        console.log(req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress); 
-      }      */
-});
+const wss = new WebSocket.Server({port: 8082});
+
+function checkWhitelist(ip) {
+    if (config.whitelist) {
+        for (i in config.trustedIPs) {
+            if (config.trustedIPs[i] == ip) {
+                return true
+            } else {
+                return false
+            }
+        }
+    } else {
+        return true
+    }
+}
 
 function main() {
     if (play) {
@@ -30,9 +42,13 @@ function main() {
 }
 
 
-wss.on('connection', (ws) => {
-
+wss.on('connection', (ws, request) => {
+    if (!checkWhitelist(request.connection.remoteAddress)) {
+        ws.terminate()
+    }
     console.log('New client connected');
+
+    console.log(request.connection.remoteAddress)
 
     play = true;
 
