@@ -6,6 +6,7 @@ function toggleOverlay() {
         overlay = true;
     } else {
         document.getElementById("settings").style.display = "none";
+        overlay = false;
     }
 }
 

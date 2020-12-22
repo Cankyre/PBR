@@ -1,10 +1,11 @@
 class Ball {
-    constructor(pos, speed, r, color) {
+    constructor(pos, speed, maxSpeed, r, color) {
         this.pos = pos;
         this.speed = {x: Math.random() * (speed.max.x - speed.min.x) + speed.min.x,
             y: Math.random() * (speed.max.y - speed.min.y) + speed.min.y};
         this.r = r;
         this.color = color;
+        this.maxSpeed = maxSpeed
         this.initial = JSON.parse(JSON.stringify({pos: pos, speed: speed, r: r, color: color}))
     }
 
@@ -37,8 +38,13 @@ class Ball {
                 var impact = this.pos.y - paddle.y - 100 / 2;
                 var ratio = 100 / (100 / 2);
                 // Get a value between 0 and 10
-                this.speed.y = impact * ratio / 10; 
-                this.speed.x *= -1.2;           
+                this.speed.y = impact * ratio / 10;
+                if (this.speed.x >= this.maxSpeed.x) {
+                    this.speed.x = this.maxSpeed.x * -1
+                }  else {
+                    this.speed.x *= -1.2;           
+                }
+                
             } else {
                 this.reset();
             } // Goal system here

@@ -87,5 +87,6 @@ function makeWs() {
     })
 }
 
+
 startBtn.onclick = makeWs
 stopBtn.onclick = function() {ws.close()};

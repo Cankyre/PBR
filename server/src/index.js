@@ -4,12 +4,19 @@ var socket = [];
 
 const Ball = require('../lib/Ball');
 
-var startBall = new Ball.Ball({x: 320, y: 240}, {min : {x: 2, y: 2}, max : {x: 5, y: 5}}, 5, "white")
+var startBall = new Ball.Ball({x: 320, y: 240}, {min : {x: 2, y: 2}, max : {x: 5, y: 5}}, {x: 15, y: 15}, 5, "white")
 var game = {ball : startBall};
 
 var play = false;
 
-const wss = new WebSocket.Server({port: 8082});
+const wss = new WebSocket.Server({port: 8082, 
+    /*verifyClient(req) {
+        console.log(req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress); 
+      }      */
+});
 
 function main() {
     if (play) {
@@ -23,7 +30,8 @@ function main() {
 }
 
 
-wss.on('connection', ws => {
+wss.on('connection', (ws) => {
+
     console.log('New client connected');
 
     play = true;
