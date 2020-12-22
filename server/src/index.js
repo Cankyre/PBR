@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 
 var socket = [];
 
-const Ball = require('./Ball');
+const Ball = require('../lib/Ball');
 
 var startBall = new Ball.Ball({x: 320, y: 240}, {min : {x: 2, y: 2}, max : {x: 5, y: 5}}, 5, "white")
 var game = {ball : startBall};
