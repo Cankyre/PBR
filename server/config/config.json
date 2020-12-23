@@ -1,4 +1,7 @@
 {
     "whitelist": false,
-    "trustedIPs": [""]
+    "trustedIPs": [],
+    "blacklist": false,
+    "banIPs": [],
+    "port": 8082
 }

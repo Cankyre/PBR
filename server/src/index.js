@@ -2,8 +2,6 @@ const WebSocket = require('ws');
 const fs = require('fs')
 
 var config = JSON.parse(fs.readFileSync('./config/config.json'))
-console.log(config)
-
 
 var socket = [];
 
@@ -14,17 +12,29 @@ var game = {ball : startBall};
 
 var play = false;
 
-const wss = new WebSocket.Server({port: 8082});
+const wss = new WebSocket.Server({port: config.port});
 
 function checkWhitelist(ip) {
     if (config.whitelist) {
         for (i in config.trustedIPs) {
             if (config.trustedIPs[i] == ip) {
                 return true
-            } else {
-                return false
             }
         }
+        return false
+    } else {
+        return true
+    }
+}
+
+function checkBlackList(ip) {
+    if (config.blacklist) {
+        for (i in config.banIPs) {
+            if (config.banIPs[i] == ip) {
+                return true
+            }
+        }
+        return false
     } else {
         return true
     }
@@ -44,11 +54,14 @@ function main() {
 
 wss.on('connection', (ws, request) => {
     if (!checkWhitelist(request.connection.remoteAddress)) {
-        ws.terminate()
+        console.log(`Client ${request.connection.remoteAddress} is not on whitelist`)
+        ws.close()
+    } else if (checkBlackList(request.connection.remoteAddress)) {
+        console.log(`Client ${request.connection.remoteAddress} is banned`)
+        ws.close()
+    } else {
+        console.log(`New client connected: ${request.connection.remoteAddress}`);
     }
-    console.log('New client connected');
-
-    console.log(request.connection.remoteAddress)
 
     play = true;
 
