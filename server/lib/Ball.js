@@ -41,13 +41,16 @@ class Ball {
                 this.speed.y = impact * ratio / 10;
                 if (this.speed.x >= this.maxSpeed.x) {
                     this.speed.x = this.maxSpeed.x * -1
-                }  else {
+                }  else if (this.speed.x <= -this.maxSpeed.x) {
+                    this.speed.x = this.maxSpeed.x
+                } else{
                     this.speed.x *= -1.2;           
                 }
                 
             } else {
                 this.reset();
-            } // Goal system here
+                return 1;
+            }
         } 
     }
 }

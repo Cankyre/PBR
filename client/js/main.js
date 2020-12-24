@@ -5,6 +5,8 @@ const startBtn = document.getElementById('start-game');
 const stopBtn = document.getElementById('stop-game');
 const showCreditsBtn = document.getElementById('showCredits');
 const hostInput = document.getElementById('host');
+const p1_score = document.getElementById('p1-score');
+const p2_score = document.getElementById('p2-score');
 
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
@@ -18,23 +20,47 @@ var game = {ball: {},
 
 function draw() {
     playerBoardContext = playerBoard.getContext('2d');
+    opponentBoardContext = opponentBoard.getContext('2d');
 
+
+    // Fill background
     playerBoardContext.fillStyle = 'black'; 
     playerBoardContext.fillRect(0, 0, playerBoard.width, playerBoard.height);
+    opponentBoardContext.fillStyle = 'black';
+    opponentBoardContext.fillRect(0, 0, playerBoard.width, playerBoard.height);
     
+    // Middle Line
     playerBoardContext.strokeStyle = 'white';
     playerBoardContext.beginPath();
     playerBoardContext.moveTo(playerBoard.width / 2, 0);
     playerBoardContext.lineTo(playerBoard.width / 2, playerBoard.height);
     playerBoardContext.stroke();
-    
+    opponentBoardContext.strokeStyle = 'white';
+    opponentBoardContext.beginPath();
+    opponentBoardContext.moveTo(opponentBoard.width / 2, 0);
+    opponentBoardContext.lineTo(opponentBoard.width / 2, opponentBoard.height);
+    opponentBoardContext.stroke();
+
+    // Draw Paddles
     playerBoardContext.fillStyle = 'white';
     playerBoardContext.fillRect(0, game.player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    if (game.p2) {
+        opponentBoardContext.fillStyle = 'white';
+        opponentBoardContext.fillRect(0, game.p2.paddle.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    }
 
+    // Draw Balls
     playerBoardContext.beginPath();
     playerBoardContext.fillStyle = 'white';
-    playerBoardContext.arc(game.ball.pos.x, game.ball.pos.y, game.ball.r, 0, Math.PI * 2, false);
+    playerBoardContext.arc(game.p1.ball.pos.x, game.p1.ball.pos.y, game.p1.ball.r, 0, Math.PI * 2, false);
     playerBoardContext.fill();
+    opponentBoardContext.beginPath();
+    opponentBoardContext.fillStyle = 'white';
+    if (game.p2) {
+        opponentBoardContext.arc(game.p2.ball.pos.x, game.p2.ball.pos.y, game.p2.ball.r, 0, Math.PI * 2, false);
+        opponentBoardContext.fill();
+    }
+    
 }
 
 function playerMove(event) {
@@ -55,11 +81,18 @@ function main() {
     if (sockState) {
         ws.send(JSON.stringify(game.player))
     }
+    p1_score.innerHTML = game.p1.score;
+    p2_score.innerHTML = game.p2.score;
     requestAnimationFrame(main)
 }
 
 function update(data) {
-    game.ball = JSON.parse(data).ball;
+    game.p1 = JSON.parse(data).p1;
+    game.p2 = JSON.parse(data).p2;
+    if (!mainState) {
+        mainState = true;
+        main();
+    }
 }
 
 playerBoard.addEventListener('mousemove', playerMove);
@@ -78,12 +111,7 @@ function makeWs() {
     })
     
     ws.addEventListener('message', ({data}) => {
-        update(data);
-        if (!mainState) {
-            main();
-            mainState = true;
-        }
-        
+        update(data);        
     })
 }
 
