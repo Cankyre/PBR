@@ -11,6 +11,8 @@ const p2_score = document.getElementById('p2-score');
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
 
+var ratio = playerBoard.width / 640  
+
 var mainState = false;
 var sockState = false;
 
@@ -43,21 +45,21 @@ function draw() {
 
     // Draw Paddles
     playerBoardContext.fillStyle = 'white';
-    playerBoardContext.fillRect(0, game.player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    playerBoardContext.fillRect(0, game.player.y, PLAYER_WIDTH * ratio, PLAYER_HEIGHT * ratio);
     if (game.p2) {
         opponentBoardContext.fillStyle = 'white';
-        opponentBoardContext.fillRect(0, game.p2.paddle.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+        opponentBoardContext.fillRect(0, game.p2.paddle.y, PLAYER_WIDTH * ratio, PLAYER_HEIGHT * ratio);
     }
 
     // Draw Balls
     playerBoardContext.beginPath();
     playerBoardContext.fillStyle = 'white';
-    playerBoardContext.arc(game.p1.ball.pos.x, game.p1.ball.pos.y, game.p1.ball.r, 0, Math.PI * 2, false);
+    playerBoardContext.arc(game.p1.ball.pos.x * ratio, game.p1.ball.pos.y * ratio, game.p1.ball.r * ratio, 0, Math.PI * 2, false);
     playerBoardContext.fill();
     opponentBoardContext.beginPath();
     opponentBoardContext.fillStyle = 'white';
     if (game.p2) {
-        opponentBoardContext.arc(game.p2.ball.pos.x, game.p2.ball.pos.y, game.p2.ball.r, 0, Math.PI * 2, false);
+        opponentBoardContext.arc(game.p2.ball.pos.x * ratio, game.p2.ball.pos.y * ratio, game.p2.ball.r * ratio, 0, Math.PI * 2, false);
         opponentBoardContext.fill();
     }
     

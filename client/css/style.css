@@ -11,6 +11,11 @@
 	font-style: normal;
 }
 
+#playerBoard, #opponentBoard {
+	width: 49%;
+	height: width * 0.75;
+}
+
 * {
 	color: white;
 }
@@ -29,6 +34,11 @@ body {
 @media (max-width: 640px) {
 	body {
 	  background-image: url(../img/background_640.jpg);
+	}
+	#playerBoard, #opponentBoard {
+		width: 90%;
+		height: width * 0.75;
+		margin-left: 5%;
 	}
   }
 
