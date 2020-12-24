@@ -8,6 +8,9 @@ const hostInput = document.getElementById('host');
 const p1_score = document.getElementById('p1-score');
 const p2_score = document.getElementById('p2-score');
 
+const pBS = document.getElementById('pBS');
+const oBS = document.getElementById('oBS');
+
 const PLAYER_HEIGHT = 100;
 const PLAYER_WIDTH = 5;
 
@@ -85,6 +88,9 @@ function main() {
     }
     p1_score.innerHTML = game.p1.score;
     p2_score.innerHTML = game.p2.score;
+
+    pBS.innerHTML = game.p1.ball.pxps;
+    oBS.innerHTML = game.p2.ball.pxps;
     requestAnimationFrame(main)
 }
 
@@ -93,6 +99,8 @@ function update(data) {
     game.p2 = JSON.parse(data).p2;
     if (!mainState) {
         mainState = true;
+        document.getElementById('pBS').style.display = "inline"
+        document.getElementById('oBS').style.display = "inline"
         main();
     }
 }

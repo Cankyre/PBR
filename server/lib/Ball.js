@@ -7,6 +7,8 @@ class Ball {
         this.color = color;
         this.maxSpeed = maxSpeed
         this.initial = JSON.parse(JSON.stringify({pos: pos, speed: speed, r: r, color: color}))
+        this.pxps = Math.round(((Math.sqrt(this.speed.x * this.speed.x
+            + this.speed.y * this.speed.y)  * (1000/60)) + Number.EPSILON) * 100) / 100;
     }
 
     move() {
@@ -26,6 +28,11 @@ class Ball {
         this.color = JSON.parse(JSON.stringify(this.initial.color));
     }
 
+    getPxps() {
+        this.pxps = Math.round(((Math.sqrt(this.speed.x * this.speed.x
+            + this.speed.y * this.speed.y)  * (1000/60)) + Number.EPSILON) * 100) / 100;
+    }
+
     collide(paddle) {
         if (this.pos.y >= 480 || this.pos.y <= 0) {
             this.speed.y *= -1;
@@ -39,6 +46,7 @@ class Ball {
                 var ratio = 100 / (100 / 2);
                 // Get a value between 0 and 10
                 this.speed.y = impact * ratio / 10;
+                this.getPxps();
                 if (this.speed.x >= this.maxSpeed.x) {
                     this.speed.x = this.maxSpeed.x * -1
                 }  else if (this.speed.x <= -this.maxSpeed.x) {
@@ -49,6 +57,7 @@ class Ball {
                 
             } else {
                 this.reset();
+                this.getPxps();
                 return 1;
             }
         } 
