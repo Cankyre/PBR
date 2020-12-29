@@ -1,0 +1,14 @@
+{
+  "name": "pbr-client",
+  "version": "0.0.1",
+  "description": "Just the client for PBR.",
+  "main": "src/start.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Cookie",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "electron": "^11.1.1"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>PBR</title>
+		<link rel="icon" type="image/png" href="favicon.png">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<body>
+		<h1>PBR</h1>
+		<main role="main">
+			<div id="settings">
+					<div class="overlayInput">
+						<label for="host" id="hostLabel">Host: </label>
+						<input type="url" id="host" name="Host">
+					</div>
+					<div class="overlayBtn">
+						<button id="showCredits" onclick="window.location.href = './credits.html'">Credits</button>
+					</div>
+			</div>
+			<p>
+				Player 1 : <em id="p1-score">0</em> - Player 2 :
+				<em id="p2-score">0</em>
+			</p>
+			<div id="buttons">
+				<button id="start-game">Start</button>
+				<button id="stop-game">Stop</button>
+			</div>
+				<br/><br/>
+			<div id="container">
+				<div id="player">
+					<canvas id="playerBoard" width="640" height="480"></canvas>
+					<div class="blur">
+						<p class="BS">BS: <span id="pBS">0</span>px/s</p>
+					</div>
+				</div>
+				<div id="opponent">
+					<canvas id="opponentBoard" width="640" height="480"></canvas>
+					<div class="blur">
+						<p class="BS">BS: <span id="oBS">0</span>px/s</p>
+					</div>
+				</div>
+			</div>
+			<br />
+		</main>
+		<script src="../src/style.js"></script>
+		<script src="../src/main.js"></script>
+	</body>
+</html>
