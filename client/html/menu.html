@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBR</title>
+    <link rel="stylesheet" href="../css/menu.css">
+</head>
+<body>
+    <h1>PBR</h1>
+    <div class="container">
+        <a href="./game.html">
+            <div class="entry" id="multiBtn">
+                <span>Multiplayer</span>
+            </div>
+        </a>
+        <a href="#">
+            <div class="entry" id="soloBtn">
+                <span>Solo</span>
+            </div>
+        </a>
+    </div>
+    <button id="exitBtn">Exit</button>
+    <script>
+        const {ipcRenderer} = require('electron');
+        const closeApp = document.getElementById('exitBtn');
+        closeApp.addEventListener('click', () => {
+            ipcRenderer.send('close-me')
+        });
+    </script>
+</body>
+</html>

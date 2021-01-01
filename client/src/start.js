@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -8,7 +8,7 @@ function createWindow () {
     }
   })
 
-  win.loadFile('./html/index.html')
+  win.loadFile('./html/menu.html')
 }
 
 app.whenReady().then(createWindow)
@@ -17,6 +17,10 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+ipcMain.on('close-me', (evt, arg) => {
+app.quit()
 })
 
 app.on('activate', () => {
